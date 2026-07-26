@@ -1,18 +1,18 @@
 Sarah App
 
 
-USER MODEL 
-fname (⚠️)
-lname  (⚠️)
-username -- unique  (⚠️)
-email  (⚠️)
-password  (⚠️)
-address  (⚠️)
-gender  (⚠️)
-phone  (⚠️)
-age  (⚠️)
-confirmEmail => flag  (⚠️)
-profile image  (⚠️)
+USER MODEL = USER TABLE 
+fname (✅)
+lname  (✅)
+username -- unique  (✅)
+email  (✅)
+password  (✅)
+address  (✅)
+gender  (✅)
+phone  (✅)
+age  (✅)
+confirmEmail => flag  (✅)
+profile image  (✅)
 
 USER APIS
 profile  (⚠️)
