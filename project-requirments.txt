@@ -26,11 +26,11 @@ create link  => id (⚠️)
 
 
 MESSAGE MODEL 
-sender_id  (⚠️)
-reciver id  (⚠️)
-body  => txt image 1000 (⚠️)
-parent_id => (⚠️)
-flag  (⚠️)
+sender_id  (✅)
+reciver id  (✅)
+body  => txt image 1000 (✅)
+parent_id => (✅)
+flag  (✅)
 
 MESSAGE APIS 
 send (⚠️)
