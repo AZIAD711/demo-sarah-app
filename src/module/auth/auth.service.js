@@ -1,3 +1,4 @@
+import { generateToken } from "../../common/token/token.js"
 import UserModel from "../../model/user.model.js"
 // SIGN UP API
 export const signupService = async (data) => {
@@ -5,10 +6,45 @@ export const signupService = async (data) => {
     const isEmailExist = await UserModel.find().where({
         email: data.email
     })
-    if (!isEmailExist) {
+    if ( isEmailExist) {
         throw new Error("❌ INVALID EMAIL !")
     }
     // TAKE USER DATA 
     const userData = await UserModel.create(data)
     return userData
+}
+// LOGIN 
+export const loginService = async (data) => {
+    // CHECK EMAIL 
+    const user = await UserModel.find().where({
+        email: data.email
+    })
+    if (!user) {
+        throw new Error("❌ INVALID EMAIL !")
+    }
+    const accessToken = generateToken({
+        payload: {
+            _id: user._id,
+            role: user.role
+        },
+        secretKey: process.env.ACCESS_TOKEN,
+        options: {
+            expiresIn: "2h",
+            audience: [],
+            issuer: "sarah-app"
+        }
+    })
+    const refreshToken = generateToken({
+        payload: {
+            _id: user._id,
+            role: user.role
+        },
+        secretKey: process.env.REFRESH_SECERT,
+        options: {
+            expiresIn: "7d",
+            audience: [],
+            issuer: "sarah-app"
+        }
+    })
+    return { accessToken, refreshToken }
 }

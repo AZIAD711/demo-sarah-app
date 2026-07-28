@@ -18,7 +18,7 @@ USER APIS
 profile  (⚠️)
 update profile   (⚠️)
 signup    (✅)
-login  (⚠️)
+login  (✅)
 login with gmail  (⚠️)
 forget password  (⚠️)
 rest password   (⚠️)
