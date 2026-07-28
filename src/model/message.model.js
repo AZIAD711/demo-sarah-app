@@ -30,7 +30,7 @@ const messageSchema = new Schema({
     // FLAG 
     flag: {
         type: String,
-        enum: [Object.values(Flag)],
+        enum: Object.values(Flag),
         default: Flag.SEND
     },
 },

@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { Gender } from "../common/enum/gender.js"
 import { Role } from "../common/enum/role.js"
-const noData = "not Data Provided !"
+const noData = "no Data Provided !"
 // USER SCHMEA
 const userSchema = new Schema({
     // FIRST NAME 
@@ -20,12 +20,6 @@ const userSchema = new Schema({
         maxlength: 80,
         require: true
     },
-    // fullName : {
-    //     type : string ,
-    //     get(){
-    //         return this.firstName + " " + this.lastName
-    //     }
-    // },
     // USERNAME 
     username: {
         type: String,
@@ -35,14 +29,14 @@ const userSchema = new Schema({
         require: true,
         unique: true
     },
-    // EMAIL 
+    // EMAIL
     email: {
         type: String,
         trim: true,
         require: true,
         unique: true
     },
-    // PASSWORD 
+    // PASSWORD
     password: {
         type: String,
         trim: true,
@@ -55,7 +49,7 @@ const userSchema = new Schema({
     },
     // ADDRESS 
     address: {
-        type: Text,
+        type: String,
         trim: true,
         default: noData
     },
@@ -71,11 +65,11 @@ const userSchema = new Schema({
         type: Number,
         min: 16,
         max: 120,
-        default: noData
+        default: 16
     },
     // PROFILE IMAGE 
     profileImage: {
-        type: Text,
+        type: String,
         default: noData
     },
     // CONFIRM EMAIL 
@@ -83,25 +77,25 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    // GENDER 
+    // GENDER
     gender: {
         type: String,
-        enum: [Object.values(Gender)],
+        enum: Object.values(Gender),
         default: Gender.MALE
     },
     // ROLE 
     role: {
         type: String,
-        enum: [Object.values(Role)],
+        enum: Object.values(Role),
         default: Role.USER
     },
 },
 
     {
-        timestamps: true, // CREATED AT && UPDATED AT
-        strict: true,
-        strictQuery: true,
-        versionKey: "version",   // version : 0 , v : 1
+        timestamps: true, // CREATED AT && UPDATED AT ( AUTOMATIC ) 
+        strict: true, // ADD RECORD 
+        strictQuery: true, // FIND OR UPDATE 
+        versionKey: "version",   // version : 0 
         toJSON: { virtuals: true, getters: true },
         toObject: { virtuals: true, getters: true },
         collection: "user_data"
