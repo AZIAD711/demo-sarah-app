@@ -12,3 +12,14 @@ export const generateToken = ({
 }) => {
     return jwt.sign(payload, secretKey, options);
 };
+// VERFIY TOKEN 
+export const verfiyToken = ({
+    token,
+    secretKey
+}) => {
+    return jwt.verify(token, secretKey)
+}
+// DECODED TOKEN 
+export const decodeToken = (token) => {
+    return jwt.decode(token)
+}

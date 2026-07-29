@@ -1,4 +1,4 @@
-import { generateToken } from "../../common/token/token.js"
+import { generateToken, verfiyToken } from "../../common/token/token.js"
 import UserModel from "../../model/user.model.js"
 // SIGN UP API
 export const signupService = async (data) => {
@@ -6,7 +6,7 @@ export const signupService = async (data) => {
     const isEmailExist = await UserModel.find().where({
         email: data.email
     })
-    if ( isEmailExist) {
+    if (isEmailExist) {
         throw new Error("❌ INVALID EMAIL !")
     }
     // TAKE USER DATA 
@@ -16,7 +16,7 @@ export const signupService = async (data) => {
 // LOGIN 
 export const loginService = async (data) => {
     // CHECK EMAIL 
-    const user = await UserModel.find().where({
+    const user = await UserModel.findOne().where({
         email: data.email
     })
     if (!user) {
@@ -34,6 +34,12 @@ export const loginService = async (data) => {
             issuer: "sarah-app"
         }
     })
+    // console.log(accessToken);
+    // const decoded = verfiyToken({
+    //     token: accessToken,
+    //     secretKey: process.env.ACCESS_TOKEN
+    // })
+    // console.log(decoded)
     const refreshToken = generateToken({
         payload: {
             _id: user._id,
@@ -47,4 +53,12 @@ export const loginService = async (data) => {
         }
     })
     return { accessToken, refreshToken }
+}
+// GET PROFILE 
+export const getProfileService = async (userId) => {
+    const user = await UserModel.findById(userId)
+    if (!user) {
+        throw new Error("USER ID NOT FOUND !")
+    }
+    return user
 }
