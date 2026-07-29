@@ -6,7 +6,7 @@ export const signupService = async (data) => {
     const isEmailExist = await UserModel.find().where({
         email: data.email
     })
-    if (isEmailExist) {
+    if (!isEmailExist) {
         throw new Error("❌ INVALID EMAIL !")
     }
     // TAKE USER DATA 
@@ -61,4 +61,23 @@ export const getProfileService = async (userId) => {
         throw new Error("USER ID NOT FOUND !")
     }
     return user
+}
+// UPDATE PROFILE 
+export const updateProfileService = async (userId, data) => {
+    const userExist = await UserModel.findById(userId)
+    if (!userExist) {
+        throw new Error("USER NOT FOUND !")
+    }
+    const user = await UserModel.findByIdAndUpdate(userId, {
+        $set: data,
+    },
+
+        {
+            new: true
+        })
+    return user
+}
+// GET ALL PROFILES 
+export const getAllProfilesService = async()=>{
+    return await UserModel.find()
 }
