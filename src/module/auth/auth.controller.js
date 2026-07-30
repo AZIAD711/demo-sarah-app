@@ -1,4 +1,4 @@
-import { loginService, signupService , getProfileService, updateProfileService ,getAllProfilesService} from "./auth.service.js"
+import { loginService, signupService , getProfileService, updateProfileService ,getAllProfilesService, forgetPasswordService} from "./auth.service.js"
 // SIGN UP 
 export const signupController = async(request, response) => {
     try {
@@ -65,6 +65,21 @@ export const updateProfileController = async(request, response) => {
         const userData = await updateProfileService(request.user._id,request.body)
         return response.status(200).json({
             message : "User Profile Updated !",
+            userData
+        })
+    } catch (error) {
+        return response.status(500).json({
+            message : "Internal Server",
+            error : error.message
+        })
+    }
+}
+// FORGET PASSWORD
+export const forgetPasswordController = async(request, response) => {
+    try {
+        const userData = await forgetPasswordService(request.body.email)
+        return response.status(200).json({
+            message : "Email Sent !",
             userData
         })
     } catch (error) {

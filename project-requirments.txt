@@ -20,7 +20,7 @@ update profile   (✅)
 signup    (✅)
 login  (✅)
 login with gmail  (⚠️)
-forget password  (⚠️)
+forget password  (✅)
 rest password   (⚠️)
 create link  => id (⚠️)
 

@@ -1,5 +1,8 @@
 import { generateToken, verfiyToken } from "../../common/token/token.js"
 import UserModel from "../../model/user.model.js"
+import {generateOTP} from "../../common/utils/generate-otp.js"
+import {deleteRecord,getRecord,setRecord,templateOtpWithEmail} from "../../common/utils/redis.js"
+import { sendEmail } from "../../common/utils/mail.js"
 // SIGN UP API
 export const signupService = async (data) => {
     // CHECK EMAIL 
@@ -78,6 +81,22 @@ export const updateProfileService = async (userId, data) => {
     return user
 }
 // GET ALL PROFILES 
-export const getAllProfilesService = async()=>{
+export const getAllProfilesService = async () => {
     return await UserModel.find()
+}
+// FORGET PASSWORD 
+export const forgetPasswordService = async (email) => {
+    const isExist = await UserModel.findOne({
+        email : email
+    })
+    if (!isExist) {
+        throw new Error("Email Is Not Exist !")
+    }
+    const otp = generateOTP()
+    const addOtp = await setRecord(templateOtpWithEmail(email), otp, 60)
+    const emailSend = await sendEmail({
+        toValue: email,
+        subjectValue: "Reset Password",
+        htmlValue: `<h1>Hello to sarah App👋</h1><br><h2>OTP : ${otp}</h2>`
+    })
 }
