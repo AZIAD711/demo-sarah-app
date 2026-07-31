@@ -28,6 +28,14 @@ export const deleteMessageService = async (data) => {
     }
     return message
 }
+// DELETE MESSAGE BY ADMIN
+export const deleteMessageByAdminService = async (messageId) => {
+    const message = await MessageModel.findByIdAndDelete(messageId)
+    if (!message) {
+        throw new Error("MESSAGE NOT FOUND !")
+    }
+    return message
+}
 // LIST ALL MESSAGES 
 export const listAllMessagesService = async()=>{
     return await MessageModel.find()

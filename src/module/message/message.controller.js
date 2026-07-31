@@ -1,5 +1,5 @@
 import messageModel from "../../model/message.model.js";
-import { deleteMessageService, getMyMessageService, listAllMessagesService, replyMessageService, sendMessageService } from "./message.service.js"
+import { deleteMessageByAdminService, deleteMessageService, getMyMessageService, listAllMessagesService, replyMessageService, sendMessageService } from "./message.service.js"
 // SEND MESSAGE 
 export const sendMessageController = async (request, response) => {
     try {
@@ -47,6 +47,22 @@ export const deleteMessageController = async (request, response) => {
             reciverId,
             messageId
         });
+        return response.status(200).json({
+            message: "Message Is Deleted",
+            data: messageData
+        })
+    } catch (error) {
+        return response.status(500).json({
+            message: "Internal Server",
+            error: error.message
+        })
+    }
+}
+// DELETE MESSAGE BY ADMIN
+export const deleteMessageByAdminController = async (request, response) => {
+    try {
+        const messageId = request.params.messageId
+        const messageData = await deleteMessageByAdminService(messageId);
         return response.status(200).json({
             message: "Message Is Deleted",
             data: messageData
