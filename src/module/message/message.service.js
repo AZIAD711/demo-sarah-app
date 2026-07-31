@@ -32,3 +32,22 @@ export const deleteMessageService = async (data) => {
 export const listAllMessagesService = async()=>{
     return await MessageModel.find()
 }
+// REPLY MESSAGE 
+export const replyMessageService = async({ messageId, senderId, content })=>{
+    const message = await MessageModel.findById(messageId)
+    if(!message){
+        throw new Error("MESSAGE NOT FOUND !")
+    }
+    if(message.reciverId.toString() !== senderId.toString()){
+        throw new Error("YOU DON'T HAVE ACCESS TO THIS MESSAGE !")
+    }
+    if(!senderId){
+        throw new Error("CANNOT REPLY TO ANONYMOUS MESSAGE !")
+    }
+    const replyMessage = await MessageModel.create({
+        body: content,
+        senderId: senderId,          // Current user (the receiver) becomes the sender
+        reciverId: message.senderId  // Send the reply back to the original sender
+    });
+    return replyMessage
+}

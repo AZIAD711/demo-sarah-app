@@ -1,5 +1,5 @@
 import messageModel from "../../model/message.model.js";
-import { deleteMessageService, getMyMessageService, listAllMessagesService, sendMessageService } from "./message.service.js"
+import { deleteMessageService, getMyMessageService, listAllMessagesService, replyMessageService, sendMessageService } from "./message.service.js"
 // SEND MESSAGE 
 export const sendMessageController = async (request, response) => {
     try {
@@ -73,3 +73,32 @@ export const listAllMessagesController = async (request, response) => {
         })
     }
 }
+// REPLY MESSAGE
+export const replyMessagesController = async (request, response) => {
+    try {
+        const messageId = request.params.messageId;
+        const senderId = request.user._id;
+        const content = request.body.message;
+
+        const reply = await replyMessageService({
+            messageId,
+            senderId,
+            content
+        });
+
+        return response.status(201).json({
+            success: true,
+            message: "Reply sent successfully!",
+            data: reply
+        });
+
+    } catch (error) {
+        console.error("❌ ERROR IN REPLY MESSAGE CONTROLLER:", error);
+
+        return response.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
