@@ -33,9 +33,9 @@ parent_id => (✅)
 flag  (✅)
 
 MESSAGE APIS 
-send (⚠️)
+send (✅)
 deleted  (⚠️)
-get my messages  (⚠️)
+get my messages  (✅)
 reply (⚠️)
 request (⚠️)
 
