@@ -10,8 +10,8 @@ export const setRecord = (key, value, time) => {
     }) : client.set(key, JSON.stringify(value))
 } 
 // GET FUNCTION 
-export const getRecord = (key) => {
-    return JSON.parse(client.get(key))
+export const getRecord = async (key) => {
+    return JSON.parse(await client.get(key))
 }
 // DELETE FUNCTION 
 export const deleteRecord = (key) => {
