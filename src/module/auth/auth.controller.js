@@ -1,4 +1,4 @@
-import { loginService, signupService , getProfileService, updateProfileService ,getAllProfilesService, forgetPasswordService, resetPasswordService, setStatusAccountService} from "./auth.service.js"
+import { loginService, signupService , getProfileService, updateProfileService ,getAllProfilesService, forgetPasswordService, resetPasswordService, setStatusAccountService, deleteAccountService} from "./auth.service.js"
 // SIGN UP 
 export const signupController = async(request, response) => {
     try {
@@ -107,12 +107,28 @@ export const resetPasswordController = async(request, response) => {
         })
     }
 }
-// RESET PASSWORD
+// SET STATUS ACCOUNT 
 export const setStatusAccountController = async(request, response) => {
     try {
         const userId = request.params.userId;
         const statusAccount = request.body.statusAccount
         const userData = await setStatusAccountService(userId,statusAccount)
+        return response.status(200).json({
+            message : "Status Account Updated !",
+            userData
+        })
+    } catch (error) {
+        return response.status(500).json({
+            message : "Internal Server",
+            error : error.message
+        })
+    }
+}
+// DELELTE ACCOUNT 
+export const deleteAccountController = async(request, response) => {
+    try {
+        const userId = request.params.userId;
+        const userData = await deleteAccountService(userId)
         return response.status(200).json({
             message : "Status Account Updated !",
             userData
