@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { Gender } from "../common/enum/gender.js"
 import { Role } from "../common/enum/role.js"
+import { StatusAccount } from "../common/enum/status-account.js";
 const noData = "no Data Provided !"
 // USER SCHMEA
 const userSchema = new Schema({
@@ -89,6 +90,12 @@ const userSchema = new Schema({
         enum: Object.values(Role),
         default: Role.USER
     },
+    // STATUS ACCOUNT 
+    statusAccount : {
+         type : String,
+         enum: Object.values(StatusAccount),
+         default : StatusAccount.ACTIVE,
+    }
 },
 
     {

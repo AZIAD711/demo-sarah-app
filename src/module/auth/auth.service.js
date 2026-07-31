@@ -3,6 +3,7 @@ import UserModel from "../../model/user.model.js"
 import { generateOTP } from "../../common/utils/generate-otp.js"
 import { deleteRecord, getRecord, setRecord, templateOtpWithEmail } from "../../common/utils/redis.js"
 import { sendEmail } from "../../common/utils/mail.js"
+import { StatusAccount } from "../../common/enum/status-account.js"
 // SIGN UP API
 export const signupService = async (data) => {
     // CHECK EMAIL 
@@ -24,6 +25,9 @@ export const loginService = async (data) => {
     })
     if (!user) {
         throw new Error("❌ INVALID EMAIL !")
+    }
+    if(user.statusAccount !== StatusAccount.ACTIVE ){
+        throw new Error("YOUR ACCOUNT IS BLOCKED !")
     }
     const accessToken = generateToken({
         payload: {
@@ -113,9 +117,15 @@ export const resetPasswordService = async (email, password, otp) => {
         throw new Error("TOKEN IS EXPIRED !")
     }
     const newPassword = await UserModel.findOneAndUpdate(
-        { email: email },        
-        { password: password },  
-        { new: true }             
+        { email: email },
+        { password: password },
+        { new: true }
     );
     return newPassword
+}
+// SET STATUS ACCOUNT 
+export const setStatusAccountService = async (userId, statusAccount) => {
+    return await UserModel.findByIdAndUpdate(userId, {
+        statusAccount: statusAccount
+    })
 }
