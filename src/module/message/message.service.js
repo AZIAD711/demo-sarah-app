@@ -46,8 +46,8 @@ export const replyMessageService = async({ messageId, senderId, content })=>{
     }
     const replyMessage = await MessageModel.create({
         body: content,
-        senderId: senderId,          // Current user (the receiver) becomes the sender
-        reciverId: message.senderId  // Send the reply back to the original sender
+        senderId: senderId,         
+        reciverId: message.senderId  
     });
     return replyMessage
 }
