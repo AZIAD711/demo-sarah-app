@@ -130,7 +130,7 @@ export const deleteAccountController = async(request, response) => {
         const userId = request.params.userId;
         const userData = await deleteAccountService(userId)
         return response.status(200).json({
-            message : "Status Account Updated !",
+            message : "Account is Deleted !",
             userData
         })
     } catch (error) {
