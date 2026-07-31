@@ -105,3 +105,18 @@ export const signupSchema = {
         }),
     })
 }
+// FORGET PASSWORD SCHEMA 
+export const forgetPasswordSchema = {
+    body: Joi.object({
+        // EMAIL
+        email: Joi.string()
+            .email({ maxDomainSegments: 2 })
+            .required()
+            .messages({
+                "string.base": "Email must be a string!",
+                "string.email": "Please enter a valid email!",
+                "string.empty": "Email field cannot be empty!",
+                "any.required": "Email field is required!",
+            }),
+    })
+}
