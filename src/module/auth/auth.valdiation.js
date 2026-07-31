@@ -120,3 +120,7 @@ export const forgetPasswordSchema = {
             }),
     })
 }
+// UPDATE PROFILE SCHEMA 
+export const updateProfileSchema = {
+    body: signupSchema.body.keys
+}
