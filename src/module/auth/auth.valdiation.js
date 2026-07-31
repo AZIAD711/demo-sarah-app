@@ -124,3 +124,18 @@ export const forgetPasswordSchema = {
 export const updateProfileSchema = {
     body: signupSchema.body.keys
 }
+// DELETE ACCOUNT
+export const deleteAccountSchema = {
+    params: Joi.object({
+        userId: Joi.string()
+            .hex()
+            .length(24)
+            .required()
+            .messages({
+                "string.empty": "MESSAGE ID IS REQUIRED!",
+                "string.hex": "MESSAGE ID MUST BE A VALID OBJECT ID!",
+                "string.length": "MESSAGE ID MUST BE 24 CHARACTERS!",
+                "any.required": "MESSAGE ID IS REQUIRED!"
+            })
+    })
+};
