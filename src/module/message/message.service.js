@@ -28,3 +28,7 @@ export const deleteMessageService = async (data) => {
     }
     return message
 }
+// LIST ALL MESSAGES 
+export const listAllMessagesService = async()=>{
+    return await MessageModel.find()
+}
