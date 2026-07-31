@@ -17,3 +17,14 @@ export const getMyMessageService = async (reciverId) => {
     }
     return message
 }
+// DELETE MESSAGE 
+export const deleteMessageService = async (data) => {
+    const message = await MessageModel.findOneAndDelete({
+        _id: data.messageId,
+        reciverId: data.reciverId
+    })
+    if (!message) {
+        throw new Error("MESSAGE NOT FOUND !")
+    }
+    return message
+}
