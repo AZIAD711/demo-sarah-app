@@ -1,7 +1,7 @@
 import {signupController,loginController,getProfileController,updateProfileController, getAllProfileController,forgetPasswordController, resetPasswordController, setStatusAccountController, deleteAccountController} from "./auth.controller.js"
 import {authencation, authorization} from "../../common/middleware/auth.middelware.js"
 import {schemaValidate} from "../../common/middleware/valdiate.js"
-import {loginSchema,resetPasswordSchema,signupSchema,forgetPasswordSchema, updateProfileSchema, deleteMessageSchema, deleteAccountSchema} from "./auth.valdiation.js"
+import {loginSchema,resetPasswordSchema,signupSchema,forgetPasswordSchema, updateProfileSchema, deleteMessageSchema, deleteAccountSchema, setStatusAccountSchema} from "./auth.valdiation.js"
 import express from "express"
 import { Role } from "../../common/enum/role.js"
 const userRouter = express.Router()
@@ -12,6 +12,6 @@ userRouter.put("/reset/password",schemaValidate(forgetPasswordSchema),resetPassw
 userRouter.get("/profile",authencation(),authorization(Role.USER,Role.ADMIN),getProfileController)
 userRouter.get("/profile/all",authencation(),authorization(Role.ADMIN),getAllProfileController)
 userRouter.put("/profile/update",schemaValidate(updateProfileSchema),authencation(),authorization(Role.USER,Role.ADMIN),updateProfileController)
-userRouter.patch("/status/account/:userId",authencation(),authorization(Role.ADMIN),setStatusAccountController)
+userRouter.patch("/status/account/:userId",schemaValidate(setStatusAccountSchema),authencation(),authorization(Role.ADMIN),setStatusAccountController)
 userRouter.delete("/kill/:userId",schemaValidate(deleteAccountSchema),authencation(),authorization(Role.ADMIN),deleteAccountController)
 export default userRouter

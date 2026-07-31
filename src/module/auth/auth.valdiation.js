@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { Gender } from "../../common/enum/gender.js"
 import { Role } from "../../common/enum/role.js"
+import { StatusAccount } from "../../common/enum/status-account.js";
 // LOGIN SCHEMA 
 export const loginSchema = {
     body: Joi.object({
@@ -136,6 +137,31 @@ export const deleteAccountSchema = {
                 "string.hex": "MESSAGE ID MUST BE A VALID OBJECT ID!",
                 "string.length": "MESSAGE ID MUST BE 24 CHARACTERS!",
                 "any.required": "MESSAGE ID IS REQUIRED!"
+            })
+    })
+};
+// SET STATUS ACCOUNT
+export const setStatusAccountSchema = {
+    params: Joi.object({
+        userId: Joi.string()
+            .hex()
+            .length(24)
+            .required()
+            .messages({
+                "string.empty": "MESSAGE ID IS REQUIRED!",
+                "string.hex": "MESSAGE ID MUST BE A VALID OBJECT ID!",
+                "string.length": "MESSAGE ID MUST BE 24 CHARACTERS!",
+                "any.required": "MESSAGE ID IS REQUIRED!"
+            })
+    }),
+    body: Joi.object({
+        statusAccount: Joi.string()
+            .valid(Object.values(StatusAccount))
+            .required()
+            .messages({
+                "any.only": `STATUS ACCOUNT MUST BE ONE OF: ${Object.values(StatusAccount).join(", ")}!`,
+                "any.required": "STATUS ACCOUNT IS REQUIRED!",
+                "string.empty": "STATUS ACCOUNT IS REQUIRED!"
             })
     })
 };
